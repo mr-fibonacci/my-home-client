@@ -29,7 +29,7 @@ const NavBar: React.FunctionComponent = () => {
     <Navbar fixed="top" bg="light" expand="sm">
       <Container>
         <Navbar.Brand>
-          <Link href="/">rent-ie</Link>
+          <Link href="/">my-home-ie</Link>
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="offcanvasNavbar"

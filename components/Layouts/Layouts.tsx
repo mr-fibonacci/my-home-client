@@ -21,7 +21,7 @@ export const BurgerLayout: React.FunctionComponent = ({ children }) => {
 
 export const FormLayout: React.FunctionComponent = ({ children }) => {
   return (
-    <Container className="border border-primary">
+    <Container>
       <Row>
         <Col
           xs={{ span: 10, offset: 1 }}

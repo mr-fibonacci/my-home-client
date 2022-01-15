@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Spinner from "react-bootstrap/Spinner";
 import FormFieldErrors from "../FormFieldErrors/FormFieldErrors";
+import { useRouter } from "next/router";
 
 export interface ISignInErrors {
   email?: string[];
@@ -12,6 +13,7 @@ export interface ISignInErrors {
   non_field_errors?: string[];
 }
 const SignInForm = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const signInData = {
@@ -29,6 +31,7 @@ const SignInForm = () => {
       const res = await axios.post("/dj-rest-auth/login/", signInData);
       console.log("success!", res);
       setErrors({});
+      router.push("/");
     } catch (err: any) {
       const errorData = err?.response?.data;
       console.log(errorData);

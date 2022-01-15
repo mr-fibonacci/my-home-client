@@ -35,13 +35,13 @@ const SignUpForm = () => {
       const res = await axios.post("/dj-rest-auth/registration/", signUpData);
       console.log("success!", res);
       setErrors({});
+      setShowModal(true);
     } catch (err: any) {
       const errorData = err?.response?.data;
       console.log(errorData);
       setErrors(errorData);
     } finally {
       setIsPending(false);
-      setShowModal(true);
     }
   };
   return (
