@@ -33,7 +33,6 @@ function* fetchCurrentUserSaga() {
     yield put(fetchSuccess(data));
   } catch (err) {
     // NO TOASTIE!
-    console.log(err.response.data);
     yield put(fetchFail());
   }
 }
