@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Footer from "../Footer/Footer";
 import NavBar, { NavBarDummy } from "../NavBar/NavBar";
 import css from "./Layouts.module.css";
+import { useAppDispatch } from "../../redux/hooks/hooks";
+import { currentUserActions } from "../../redux/sagas/currentUserSagas";
 
 export const BurgerLayout: React.FunctionComponent = ({ children }) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch({ type: currentUserActions.FETCH });
+  }, [dispatch]);
+
   return (
     <>
       <NavBar />

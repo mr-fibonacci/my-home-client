@@ -2,7 +2,7 @@ import axios from "axios";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 import { FormLayout } from "../../components/Layouts/Layouts";
 
 const VerifyEmail: NextPage = () => {
@@ -32,7 +32,7 @@ const VerifyEmail: NextPage = () => {
   return (
     <FormLayout>
       <div className="d-flex flex-column justify-content-center align-items-center">
-        <Spinner className="p-4" animation="border" />
+        {message ? undefined : <Spinner className="p-4" animation="border" />}
         <h4 className="p-3 text-center">{message ? message : msgPending}</h4>
       </div>
     </FormLayout>

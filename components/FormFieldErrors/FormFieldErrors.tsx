@@ -1,5 +1,5 @@
 import Form from "react-bootstrap/Form";
-import { ISignUpErrors } from "../Forms/SignUpForm";
+import { ISignUpErrors } from "../../redux/reducers/currentUserSlice";
 
 interface IFieldErrors<T> {
   fieldKey: keyof T;
@@ -11,7 +11,7 @@ const FormFieldErrors: React.FunctionComponent<IFieldErrors<ISignUpErrors>> = (
   const { fieldKey, errors } = props;
   return (
     <>
-      {errors?.[fieldKey]?.map((errMsg, idx) => (
+      {errors?.[fieldKey]?.map((errMsg: string, idx: number) => (
         <Form.Control.Feedback className="" type="invalid" key={idx}>
           {errMsg}
         </Form.Control.Feedback>

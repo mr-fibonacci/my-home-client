@@ -1,44 +1,28 @@
-import axios from "axios";
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Spinner from "react-bootstrap/Spinner";
 import FormFieldErrors from "../FormFieldErrors/FormFieldErrors";
-import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import { currentUserActions } from "../../redux/sagas/currentUserSagas";
+import { selectCurrentUser } from "../../redux/reducers/currentUserSlice";
 
-export interface ISignInErrors {
-  email?: string[];
-  password?: string[];
-  non_field_errors?: string[];
-}
 const SignInForm = () => {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const signInData = {
     email,
     password,
   };
-  const [errors, setErrors] = useState<ISignInErrors>({});
 
-  const [isPending, setIsPending] = useState(false);
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector(selectCurrentUser);
+  const { isLoading, errors } = currentUser;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsPending(true);
-    try {
-      const res = await axios.post("/dj-rest-auth/login/", signInData);
-      console.log("success!", res);
-      setErrors({});
-      router.push("/");
-    } catch (err: any) {
-      const errorData = err?.response?.data;
-      console.log(errorData);
-      setErrors(errorData);
-    } finally {
-      setIsPending(false);
-    }
+    dispatch({ type: currentUserActions.SIGN_IN, payload: signInData });
   };
   return (
     <>
@@ -78,10 +62,10 @@ const SignInForm = () => {
           <FormFieldErrors errors={errors} fieldKey="non_field_errors" />
         </Form.Group>
 
-        <Button variant="primary" type="submit" disabled={!!isPending}>
-          Sign up
-          {!!isPending ? (
-            <Spinner as="span" animation="border" size="sm" />
+        <Button variant="primary" type="submit" disabled={isLoading}>
+          Sign in
+          {isLoading ? (
+            <Spinner className="ms-2" as="span" animation="border" size="sm" />
           ) : null}
         </Button>
       </Form>

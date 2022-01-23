@@ -1,18 +1,13 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Spinner from "react-bootstrap/Spinner";
 import FormFieldErrors from "../FormFieldErrors/FormFieldErrors";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import { currentUserActions } from "../../redux/sagas/currentUserSagas";
+import { selectCurrentUser } from "../../redux/reducers/currentUserSlice";
 import RedirectModal from "../Modals/SignUpRedirectModal";
-
-export interface ISignUpErrors {
-  email?: string[];
-  password1?: string[];
-  password2?: string[];
-  non_field_errors?: string[];
-}
 
 const SignUpForm = () => {
   const [email, setEmail] = useState("");
@@ -23,27 +18,16 @@ const SignUpForm = () => {
     password1,
     password2,
   };
-  const [errors, setErrors] = useState<ISignUpErrors>({});
 
-  const [showModal, setShowModal] = useState(false);
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector(selectCurrentUser);
+  const { isLoading, errors } = currentUser;
 
-  const [isPending, setIsPending] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsPending(true);
-    try {
-      const res = await axios.post("/dj-rest-auth/registration/", signUpData);
-      console.log("success!", res);
-      setErrors({});
-      setShowModal(true);
-    } catch (err: any) {
-      const errorData = err?.response?.data;
-      console.log(errorData);
-      setErrors(errorData);
-    } finally {
-      setIsPending(false);
-    }
+    dispatch({ type: currentUserActions.SIGN_UP, payload: signUpData });
   };
+
   return (
     <>
       <h1 className="mb-3">Please sign up</h1>
@@ -98,14 +82,14 @@ const SignUpForm = () => {
           <FormFieldErrors errors={errors} fieldKey="non_field_errors" />
         </Form.Group>
 
-        <Button variant="primary" type="submit" disabled={!!isPending}>
+        <Button variant="primary" type="submit" disabled={isLoading}>
           Sign up
-          {!!isPending ? (
-            <Spinner as="span" animation="border" size="sm" />
+          {isLoading ? (
+            <Spinner className="ms-2" as="span" animation="border" size="sm" />
           ) : null}
         </Button>
       </Form>
-      <RedirectModal email={email} show={showModal} setShow={setShowModal} />
+      <RedirectModal email={email} />
     </>
   );
 };
