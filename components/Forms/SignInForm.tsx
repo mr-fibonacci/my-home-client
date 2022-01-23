@@ -26,7 +26,7 @@ const SignInForm = () => {
   };
   return (
     <>
-      <h1 className="mb-3">Please sign in</h1>
+      <h1 className="mb-3 text-center">Please sign in</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <FloatingLabel label="Email address" controlId="floatingEmailLabel">
@@ -50,7 +50,7 @@ const SignInForm = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <FormFieldErrors errors={errors} fieldKey="password1" />
+            <FormFieldErrors errors={errors} fieldKey="password" />
           </FloatingLabel>
         </Form.Group>
 
@@ -62,8 +62,13 @@ const SignInForm = () => {
           <FormFieldErrors errors={errors} fieldKey="non_field_errors" />
         </Form.Group>
 
-        <Button variant="primary" type="submit" disabled={isLoading}>
-          Sign in
+        <Button
+          className="w-100"
+          variant="primary"
+          type="submit"
+          disabled={isLoading}
+        >
+          sign in
           {isLoading ? (
             <Spinner className="ms-2" as="span" animation="border" size="sm" />
           ) : null}

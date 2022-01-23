@@ -30,7 +30,7 @@ const SignUpForm = () => {
 
   return (
     <>
-      <h1 className="mb-3">Please sign up</h1>
+      <h1 className="mb-3 text-center">Please sign up</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <FloatingLabel label="Email address" controlId="floatingEmailLabel">
@@ -82,8 +82,13 @@ const SignUpForm = () => {
           <FormFieldErrors errors={errors} fieldKey="non_field_errors" />
         </Form.Group>
 
-        <Button variant="primary" type="submit" disabled={isLoading}>
-          Sign up
+        <Button
+          className="w-100"
+          variant="primary"
+          type="submit"
+          disabled={isLoading}
+        >
+          sign up
           {isLoading ? (
             <Spinner className="ms-2" as="span" animation="border" size="sm" />
           ) : null}

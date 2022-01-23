@@ -33,7 +33,7 @@ export interface ISignInErrors {
 }
 
 // why the heck did type ICurrentUserErrors = ISignUpErrors | ISignInErrors not work?
-interface ICurrentUserErrors extends ISignUpErrors, ISignInErrors {}
+export interface ICurrentUserErrors extends ISignUpErrors, ISignInErrors {}
 
 type ICurrentUserState = IAsyncState<
   ICurrentUser | Record<string, never>,

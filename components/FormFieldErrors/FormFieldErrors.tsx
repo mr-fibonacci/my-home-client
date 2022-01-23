@@ -1,13 +1,14 @@
 import Form from "react-bootstrap/Form";
-import { ISignUpErrors } from "../../redux/reducers/currentUserSlice";
+import { ICurrentUserErrors } from "../../redux/reducers/currentUserSlice";
 
 interface IFieldErrors<T> {
   fieldKey: keyof T;
   errors: T;
 }
-const FormFieldErrors: React.FunctionComponent<IFieldErrors<ISignUpErrors>> = (
-  props
-) => {
+
+const FormFieldErrors: React.FunctionComponent<
+  IFieldErrors<ICurrentUserErrors>
+> = (props) => {
   const { fieldKey, errors } = props;
   return (
     <>

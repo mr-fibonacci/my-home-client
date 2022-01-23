@@ -23,8 +23,8 @@ const NavBar: React.FunctionComponent = () => {
   const generalLinks = (
     <>
       <NavLink href="/">home</NavLink>
-      <NavLink href="/buy">buy</NavLink>
-      <NavLink href="/rent">rent</NavLink>
+      <NavLink href="/listings/buy">buy</NavLink>
+      <NavLink href="/listings/rent">rent</NavLink>
     </>
   );
   const signedOutLinks = (
