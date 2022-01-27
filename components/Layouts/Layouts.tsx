@@ -22,7 +22,7 @@ const NextHtmlHeader: React.FunctionComponent = () => {
   );
 };
 
-export const BurgerLayout: React.FunctionComponent = ({ children }) => {
+export const RootBurgerLayout: React.FunctionComponent = ({ children }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -59,11 +59,20 @@ export const FormLayout: React.FunctionComponent = ({ children }) => {
   );
 };
 
+// could pass left and right panel components as props
 export const FlexGrowLayout: React.FunctionComponent = ({ children }) => {
   return (
     <Container className="flex-grow-1 border border-primary">
       <Row>
-        <Col>{children}</Col>
+        <Col style={{ border: "1px black solid" }} xl={3}></Col>
+        <Col
+          style={{ border: "1px black solid" }}
+          md={{ offset: 2, span: 8 }}
+          xl={{ offset: 0, span: 6 }}
+        >
+          {children}
+        </Col>
+        <Col style={{ border: "1px black solid" }} xl={3}></Col>
       </Row>
     </Container>
   );

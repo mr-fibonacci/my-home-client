@@ -3,12 +3,14 @@ import { currentUserReducer } from "./reducers/currentUserSlice";
 
 import createSagaMiddleware from "@redux-saga/core";
 import rootSaga from "./sagas/rootSaga";
+import { userProfileReducer } from "./reducers/userProfileSlice";
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: {
     currentUser: currentUserReducer,
+    userProfile: userProfileReducer,
     // toasts: toastsReducer
     // buyListings : buyListingsReducer (state.buyListings), etc
     // rentListings

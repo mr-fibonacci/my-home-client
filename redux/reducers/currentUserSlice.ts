@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IAsyncState } from "../redux-slice-interfaces";
 import { RootState } from "../reduxStore";
+import { IUserProfile } from "./userProfileSlice";
 
 export interface ICurrentUser {
   pk: number;
-  username: string;
-  email: string;
-  first_name: string;
-  last_name: string;
+  profile: IUserProfile;
 }
 
 export interface ISignUpFormData {
@@ -56,6 +54,9 @@ export const currentUserSlice = createSlice({
     setIsLoading: (state) => {
       state.isLoading = true;
     },
+    confirmFeedback: (state) => {
+      state.feedback = {};
+    },
     fetchSuccess: (state, action: PayloadAction<ICurrentUser>) => {
       return {
         isLoading: false,
@@ -95,6 +96,7 @@ export const currentUserSlice = createSlice({
 
 export const {
   setIsLoading,
+  confirmFeedback,
   fetchSuccess,
   fetchFail,
   signUpSuccess,

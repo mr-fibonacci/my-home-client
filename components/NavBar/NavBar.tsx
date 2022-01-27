@@ -42,7 +42,9 @@ const NavBar: React.FunctionComponent = () => {
       >
         sign out
       </NavLink>
-      <NavLink href={`/profiles/$:id/`}>profile</NavLink>
+      <NavLink href={`/profiles/${currentUser.data?.profile?.id}`}>
+        profile
+      </NavLink>
     </>
   );
   const userLinks = isLoading ? (

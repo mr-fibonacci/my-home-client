@@ -1,8 +1,11 @@
 import { useRouter } from "next/router";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { useAppSelector } from "../../redux/hooks/hooks";
-import { selectCurrentUser } from "../../redux/reducers/currentUserSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import {
+  confirmFeedback,
+  selectCurrentUser,
+} from "../../redux/reducers/currentUserSlice";
 
 interface IRedirectModal {
   email: string;
@@ -11,6 +14,7 @@ interface IRedirectModal {
 const RedirectModal: React.FunctionComponent<IRedirectModal> = (props) => {
   const { email } = props;
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const emailDomain = email.split("@")[1];
   const emailUrl = `https://www.${emailDomain}`;
@@ -24,7 +28,12 @@ const RedirectModal: React.FunctionComponent<IRedirectModal> = (props) => {
   };
 
   return (
-    <Modal backdrop="static" centered show={showModal}>
+    <Modal
+      backdrop="static"
+      centered
+      show={showModal}
+      onHide={() => dispatch(confirmFeedback())}
+    >
       <Modal.Header closeButton>
         <Modal.Title>Successfully registered!</Modal.Title>
       </Modal.Header>
